@@ -27,6 +27,11 @@ app.post("/post_blog", (req, res) => {
     res.redirect("/");
 })
 
+app.get("/delete-blog/:id", (req,res) => {
+    deleteBlog(req.params.id);
+    res.redirect("/");
+})
+
 app.listen(port, () => {
     console.log(`Server running on port ${port}`);
 });
@@ -42,4 +47,15 @@ function addNewPost(body, res) {
     const content = body.content;
     const preview = content.substring(0, 200);
     return { title: title, content: content, preview: preview, id: blogs.length };
+}
+
+function deleteBlog(id){
+    for(let i = 0; i<blogs.length; i++){
+        if(blogs[i].id == id){
+            let temp = blogs[blogs.length-1];
+            blogs[blogs.length-1] = blogs[i];
+            blogs[i] = temp;
+            blogs.pop();
+        }
+    }
 }

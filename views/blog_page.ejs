@@ -7,6 +7,7 @@
 </head>
 <body>
     <%- include('./partials/header.ejs') %>
+    <form action="/delete-blog/<%= blog.id %>" method="PUT"><button type="submit">Delete Blog</button></form> 
     <h1><%= blog.title %></h1>
     <p><%= blog.content %></p>
 </body>
