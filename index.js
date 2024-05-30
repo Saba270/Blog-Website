@@ -10,25 +10,43 @@ const port = 3000;
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(express.static('public'));
 
+//Home
 app.get("/", (req, res) => {
+    reassignIDs();
     res.render(__dirname + "/views/index.ejs", { blogs: blogs });
 })
 
+//Blog
 app.get("/blog/:id", (req, res) => {
     res.render(__dirname + "/views/blog_page.ejs", { blog: blogs[req.params.id] });
 })
 
+//New Blog
 app.get("/post_new_page", (req, res) => {
-    res.sendFile(__dirname + "/post_new_blog.html")
+    res.render(__dirname + "/views/post_new_blog.ejs", {blog: -1})
 })
 
 app.post("/post_blog", (req, res) => {
+    reassignIDs();
     blogs.push(addNewPost(req.body, res))
     res.redirect("/");
 })
 
-app.get("/delete-blog/:id", (req,res) => {
+
+//Delete Blog
+app.post("/delete-blog/:id", (req,res) => {
     deleteBlog(req.params.id);
+    res.redirect("/");
+})
+
+
+//Change Blog
+app.post("/update-blog/:id", (req,res) => {
+    res.render(__dirname + "/views/post_new_blog.ejs", {blog: blogs[req.params.id]});
+})
+
+app.post("/save-update/:id", (req,res) => {
+    updateBlog(req.body, req.params.id);
     res.redirect("/");
 })
 
@@ -41,6 +59,12 @@ let blogs = [{
     preview: "Nunc quis urna malesuada, congue orci vel, pulvinar turpis. Aliquam ac interdum mi. Ut aliquam diam eget leo ornare ultrices sed et metus. Nullam commodo dictum vulputate. Fusce bibendum placerat tort",
     id: 0
 }];
+
+function reassignIDs(){
+    for(let i = 0; i<blogs.length; i++){
+        blogs[i].id = i;
+    }
+}
 
 function addNewPost(body, res) {
     const title = body.title;
@@ -58,4 +82,10 @@ function deleteBlog(id){
             blogs.pop();
         }
     }
+}
+
+function updateBlog(body,id){
+    blogs[id].title = body.title;
+    blogs[id].content = body.content;
+    blogs[id].preview = body.content.substring(0,200);
 }
