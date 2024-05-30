@@ -14,9 +14,8 @@ app.get("/", (req, res) => {
     res.render(__dirname + "/views/index.ejs", { blogs: blogs });
 })
 
-app.get("/blog", (req, res) => {
-    console.log(req.body.index)
-    res.render(__dirname + "/views/blog_page.ejs", { blogs: blogs });
+app.get("/blog/:id", (req, res) => {
+    res.render(__dirname + "/views/blog_page.ejs", { blog: blogs[req.params.id] });
 })
 
 app.get("/post_new_page", (req, res) => {
@@ -24,7 +23,7 @@ app.get("/post_new_page", (req, res) => {
 })
 
 app.post("/post_blog", (req, res) => {
-    blogs.push(addNewPost(req.body))
+    blogs.push(addNewPost(req.body, res))
     res.redirect("/");
 })
 
@@ -38,9 +37,9 @@ let blogs = [{
     id: 0
 }];
 
-function addNewPost(body) {
+function addNewPost(body, res) {
     const title = body.title;
     const content = body.content;
     const preview = content.substring(0, 200);
-    return { title: title, content: content, preview: preview, id: blogs.length};
+    return { title: title, content: content, preview: preview, id: blogs.length };
 }

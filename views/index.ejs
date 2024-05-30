@@ -8,12 +8,16 @@
 </head>
 
 <body>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
     <%- include('./partials/header.ejs') %>
         <h1>Blogs</h1>
         <ul>
             <% for(let i=0; i<blogs.length; i++){ %>
                 <li>
-                    <button href="/blog">
+                    <a href="/blog/<%= blogs[i].id %>" class="blog-link">
+                        <span hidden="true">
+                            <%= blogs[i].id %>
+                        </span>
                         <div class="blog-preview-div">
                             <h3>
                                 <%= blogs[i].title %>
@@ -22,10 +26,12 @@
                                 <%= blogs[i].preview %> ...
                             </p>
                         </div>
-                    </button>
+                    </a>
                 </li>
                 <% } %>
         </ul>
+
+        <script src="../index.js"></script>
 </body>
 
 </html>
