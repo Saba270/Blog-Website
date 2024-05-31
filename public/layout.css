@@ -1,0 +1,114 @@
+*{
+    margin: 0;
+    padding: 0;
+    position: relative;
+    font-family: "Poppins", sans-serif;
+    transition: 0.2s;
+}
+
+body{
+    background-color: #FFF;
+    display: flex;
+    flex-direction: column;
+}
+
+header{
+    background-color: royalblue;
+    display: flex;
+    justify-content: space-between;
+    padding: 1vw 3vw;
+    align-items: center;
+    height: 2.5vw;
+    width: auto;
+}
+
+a, a:visited{
+    color: #FFF;
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 25px;
+}
+
+a:hover{
+    text-decoration: underline 0.07lh;
+    text-underline-offset: 4px;
+    font-size: 27px;
+}
+
+a:active{
+    font-size: 23px;
+}
+
+.new-post-btn{
+    background-color: #FFF;
+    border: 0;
+    border-radius: 20lh;
+    height: 30px;
+    width: 140px;
+    cursor: pointer;
+    color: royalblue;
+    font-weight: 600;
+    text-align: center;
+}
+
+.new-post-btn:hover{
+    filter:opacity(0.8);
+    scale: 1.05;
+}
+
+.new-post-btn:active{
+    scale: 0.9;
+}
+
+#main-header{
+    text-align: center;
+    margin-top: 2vw;
+    font-weight: 700;
+    font-size: 60px;
+}
+
+ul{
+    text-align: center;
+    margin-top: 2vw;
+    display: flex;
+    flex-direction: column;
+    gap: 1vw;
+}
+
+.blog-btn{
+    border: 0;
+    padding: 1vw 3vw 2vw 3vw;
+    border-radius: 1vw;
+    background-color: royalblue;
+    color: #FFF;
+    width: 85vw;
+    cursor: pointer;
+}
+
+.blog-btn:hover{
+    scale: 1.05;
+}
+
+.blog-btn:active{
+    scale: 0.96;
+}
+
+.blog-title{
+    font-size: 30px;
+}
+
+.blog-preview{
+    font-size: 20px;
+    text-align: left;
+}
+
+footer{
+    background-color: royalblue;
+    height: 15vw;
+    color: #FFF;
+    text-align: center;
+    font-size: 50px;
+    margin-top: 3vw;
+    bottom: 0px;
+    
+}

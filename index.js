@@ -7,8 +7,8 @@ const __dirname = dirname(fileURLToPath(import.meta.url));
 const app = express();
 const port = 3000;
 
+app.use(express.static("public"));
 app.use(bodyParser.urlencoded({ extended: false }));
-app.use(express.static('public'));
 
 //Home
 app.get("/", (req, res) => {
@@ -18,7 +18,7 @@ app.get("/", (req, res) => {
 
 //Blog
 app.get("/blog/:id", (req, res) => {
-    res.render(__dirname + "/views/blog_page.ejs", { blog: blogs[req.params.id] });
+    res.render(__dirname + "/views/blog_page.ejs", { blogs: blogs, id: req.params.id });
 })
 
 //New Blog
@@ -56,8 +56,12 @@ app.listen(port, () => {
 
 let blogs = [{
     title: "Test Blog", content: "Nunc quis urna malesuada, congue orci vel, pulvinar turpis. Aliquam ac interdum mi. Ut aliquam diam eget leo ornare ultrices sed et metus. Nullam commodo dictum vulputate. Fusce bibendum placerat tortor eu lacinia. Morbi pretium, dui ut dictum consectetur, arcu massa eleifend enim, vel facilisis enim est at libero. Quisque at tincidunt sapien, id ultricies velit. In convallis est leo, aliquet lobortis nibh sollicitudin at. In mollis orci quis mi sollicitudin, faucibus scelerisque mauris molestie.",
-    preview: "Nunc quis urna malesuada, congue orci vel, pulvinar turpis. Aliquam ac interdum mi. Ut aliquam diam eget leo ornare ultrices sed et metus. Nullam commodo dictum vulputate. Fusce bibendum placerat tort",
+    preview: "Nunc quis urna malesuada, congue orci vel, pulvinar turpis. Aliquam ac interdum mi. Ut aliquam diam eget leo ornare ultrices sed et metus. Nullam commodo dictum vulputate. Fusce bibendum placerat tortor eu lacinia. Morbi pretium, dui ut dictum consec",
     id: 0
+},{
+    title: "Test Blog 2", content: "ui ut dictum consectetur, arcu massa eleifend enim, vel facilisis enim est at libero. Quisque at tincidunt sapien, id ultricies velit. In convallis est leo, aliquet lobortis nibh sollicitudin at. In mollis orci quis mi sollicitudin, faucibus scelerisque mauris molestie.",
+    preview: "ui ut dictum consectetur, arcu massa eleifend enim, vel facilisis enim est at libero. Quisque at tincidunt sapien, id ultricies velit. In convallis est leo, aliquet lobortis nibh sollicitudin at. In mollis orci quis mi sollicitudin, faucibus sceleris",
+    id: 1
 }];
 
 function reassignIDs(){
@@ -69,7 +73,7 @@ function reassignIDs(){
 function addNewPost(body, res) {
     const title = body.title;
     const content = body.content;
-    const preview = content.substring(0, 200);
+    const preview = content.substring(0, 250);
     return { title: title, content: content, preview: preview, id: blogs.length };
 }
 
@@ -87,5 +91,5 @@ function deleteBlog(id){
 function updateBlog(body,id){
     blogs[id].title = body.title;
     blogs[id].content = body.content;
-    blogs[id].preview = body.content.substring(0,200);
+    blogs[id].preview = body.content.substring(0,250);
 }
